@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desvita Natasya</title>
+
+<style>
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fffaf0;
+}
+
+/* ================= BACKGROUND ================= */
+.background {
+  position: fixed;
+  inset: 0;
+  background: url('bg2.webp') center/contain no-repeat;
+  background-color: #fffaf0;
+  z-index: -10;
+}
+
+/* ================= FLOWER ================= */
+/* ================= FLOWER (LEFT BOTTOM) ================= */
+/* ================= FLOWER FIXED (LEFT BOTTOM SAFE) ================= */
+/* ================= FLOWER (CENTER BOTTOM) ================= */
+.flower {
+  position: absolute;
+  bottom: 10px;
+  left: 15%;
+  transform: translateX(-50%) rotate(0deg);
+  width: 220px;
+
+  transform-origin: bottom center;
+  animation: flowerSway 4s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes flowerSway {
+  0%,100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(4deg); }
+}
+
+/* ================= BUTTERFLY ================= */
+/* ================= BUTTERFLY (FLAP ONLY) ================= */
+
+.butterfly img {
+  width: 80%;
+  transform-origin: center;
+  animation: flap 0.5s ease-in-out infinite;
+}
+
+/* kepakan sayap */
+@keyframes flap {
+  0%   { transform: scaleX(1); }
+  50%  { transform: scaleX(0.85); }
+  100% { transform: scaleX(1); }
+}
+
+/* ================= CENTER WINDOW ================= */
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 80%;
+  max-width: 500px;
+
+  max-height: 85vh;        /* ⬅ BATAS TINGGI LAYAR */
+  overflow: hidden;        /* ⬅ SCROLL DI DALAM */
+
+  background: rgba(255, 245, 230, 0.95);
+  border-radius: 18px;
+  padding: 24px;
+  display: none;
+  animation: popup 0.5s forwards;
+
+  z-index: 5;              /* ⬅ DI ATAS BUNGA */
+}
+
+@keyframes popup {
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ================= HEADER ================= */
+.window h1 {
+  font-size: 36px;
+  font-weight: 900;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* ================= TEXT ================= */
+
+#typedText {
+  font-size: 16px;
+  line-height: 1.6;
+
+  max-height: 260px;     /* ⬅ INI YANG BIKIN SCROLL MUNCUL */
+  overflow-y: auto;     /* ⬅ AKTIFKAN SCROLL */
+  overflow-x: hidden;
+
+  padding-right: 6px;
+}
+
+/* Scrollbar */
+#typedText::-webkit-scrollbar {
+  width: 6px;
+}
+#typedText::-webkit-scrollbar-thumb {
+  background: #d6a86f;
+  border-radius: 6px;
+}
+
+
+/* ================= BUTTON ================= */
+.btn {
+  position: absolute;
+  bottom: 40px;
+  left: 80%;
+  transform: translateX(-50%);
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #e2b887;
+}
+
+.btn:hover {
+  background: #d6a86f;
+}
+
+/* ================= BUTTERFLY PERCH ================= */
+
+/* ================= WARNING ================= */
+.warning {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+/* ================= TEXTAREA ================= */
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.sendBtn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  background: #cfa06a;
+  cursor: pointer;
+}
+
+/* ================= BUTTERFLY BACKGROUND TEXT ================= */
+.butterfly-bg {
+  position: absolute;
+  top: 55%;                     /* kunci ke tengah jendela */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;                 /* bebas kamu atur */
+  opacity: 0.25;
+  pointer-events: none;
+  display: none;
+  z-index: 0;
+}
+
+
+.butterfly-bg img {
+  width: 100%;
+  animation: flap 0.6s ease-in-out infinite;
+}
+
+/* Pastikan header & teks di atas kupu-kupu */
+.window h1,
+#typedText {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Background tetap utuh & tidak kepotong */
+  .background {
+    background-size: contain;
+    background-position: center;
+  }
+
+  /* Flower lebih kecil & tidak nutup konten */
+
+  .flower {
+    width: 150px;
+    bottom: 5px;
+  }
+
+
+
+  /* Butterfly lebih kecil */
+ .butterfly-bg {
+    width: 120px;
+    top: 55%;
+  }
+
+  /* Jendela tengah lebih pas di HP */
+  .window {
+    width: 90%;
+    max-width: 85%;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .window h1 {
+    font-size: 26px;
+  }
+
+  #typedText {
+    font-size: 14px;
+    min-height: 100px;
+  }
+
+  /* Tombol tidak ketutup */
+  .btn {
+    bottom: 20px;
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+
+  /* Butterfly hinggap tidak keluar layar */
+  .butterfly.perch {
+    right: -20px;
+    top: -30px;
+    width: 70px;
+  }
+
+  /* Textarea lebih nyaman */
+  textarea {
+    height: 90px;
+    font-size: 14px;
+  }
+
+  .sendBtn {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Warning di tengah & jelas */
+  .warning {
+    font-size: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .window {
+  max-height: 80vh;
+}
+
+#typedText {
+  max-height: 200px;
+  font-size: 14px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<img src="flower.webp" class="flower">
+
+<button class="btn" id="nextBtn">Lanjut</button>
+
+<!-- WINDOW -->
+<div class="window" id="window">
+  <h1>BDAY UCOK 💌</h1>
+
+  <div class="butterfly butterfly-bg" id="butterfly">
+    <img src="butterfly.webp">
+  </div>
+
+  <div id="typedText"></div>
+</div>
+
+<!-- WARNING -->
+<div class="warning" id="warning">
+  Harap isi pesan terlebih dahulu...
+</div>
+
+<audio id="music" src="lagu.mp3"></audio>
+
+<script>
+let stage = 1;
+const btn = document.getElementById('nextBtn');
+const win = document.getElementById('window');
+const textEl = document.getElementById('typedText');
+const butterfly = document.getElementById('butterfly');
+const music = document.getElementById('music');
+
+const message =
+`* NOTE: Ucapan Ini hanya Contoh, Silakan Ganti Dengan Ucapanmu Sendiri Ya!*
+.
+.
+.
+.
+.
+Selamat ulang tahun untukmu, sosok yang kehadirannya selalu memberikan arti lebih bagi setiap orang di sekitarmu. Di hari yang istimewa ini, aku ingin memulai dengan rasa syukur yang paling dalam karena semesta telah mengizinkanmu lahir dan tumbuh menjadi pribadi yang luar biasa seperti sekarang. Hari ini bukan sekadar perayaan bertambahnya angka, melainkan perayaan atas segala kebaikan, cinta, dan ketulusan yang telah kamu bagikan selama setahun belakangan ini.
+
+Melihat kembali perjalanan yang telah kamu lalui, aku merasa sangat bangga menyaksikan betapa kuatnya kamu menghadapi setiap tantangan yang datang. Kamu telah melewati berbagai musim kehidupan—mulai dari tawa yang paling renyah hingga air mata yang tersembunyi—namun kamu tetap berdiri tegak dengan hati yang tetap hangat. Ketangguhanmu adalah inspirasi bagiku, dan aku berharap kamu tidak pernah lupa betapa berharganya setiap perjuangan yang telah kamu menangkan sejauh ini.
+
+Memasuki usia yang baru ini, doa pertamaku adalah agar kamu selalu diberikan kesehatan yang sempurna, baik fisik maupun jiwa. Semoga setiap sel dalam tubuhmu diberkati dengan kekuatan, sehingga kamu bisa terus melangkah mengejar mimpi-mimpi besarmu tanpa rasa lelah yang berarti. Aku juga berharap pikiranmu selalu dilingkupi dengan ketenangan, agar dalam situasi tersulit sekalipun, kamu tetap bisa menemukan jalan keluar dengan penuh kebijaksanaan.
+
+Lebih dari itu, aku berdoa agar pintu-pintu rezeki dan peluang terbuka lebar di hadapanmu sepanjang tahun ini. Semoga apa yang kamu kerjakan membuahkan hasil yang manis, dan setiap keringat yang jatuh dibalas dengan keberhasilan yang melampaui ekspektasimu. Jangan pernah ragu untuk mengambil kesempatan baru, karena aku sangat percaya bahwa kemampuan yang kamu miliki jauh lebih besar daripada rasa takut yang mungkin sesekali muncul di benakmu.
+
+Di sisi lain, aku berharap hatimu selalu dipenuhi oleh kedamaian yang tak tergoyahkan oleh hiruk-pikuk dunia. Semoga kamu dikelilingi oleh orang-orang yang tulus mencintaimu, yang selalu ada untuk memelukmu saat kamu jatuh dan menjadi orang pertama yang bertepuk tangan saat kamu berhasil. Semoga lingkunganmu menjadi tempat yang aman bagimu untuk terus bertumbuh menjadi versi terbaik dari dirimu sendiri tanpa harus merasa terhakimi.
+
+Jangan pernah lupa untuk menyisihkan waktu bagi dirimu sendiri di tengah kesibukanmu mengejar ambisi. Nikmatilah hal-hal kecil yang membuatmu tersenyum, baik itu secangkir kopi di pagi hari, hobi yang sempat tertunda, atau sekadar waktu tenang untuk bernapas lega. Kamu berhak mendapatkan semua kebahagiaan di dunia ini, dan aku berharap tahun ini memberikanmu lebih banyak alasan untuk tertawa bahagia setiap harinya.
+
+Sebagai penutup, ketahuilah bahwa aku akan selalu menjadi salah satu pendukung setiamu yang tidak akan pernah pergi. Di tahun-tahun mendatang, aku berharap bisa terus menyaksikan pertumbuhanmu, merayakan setiap pencapaianmu, dan menemani hari-harimu baik dalam suka maupun duka. Selamat ulang tahun, panjang umur, dan semoga semua doa yang kamu langitkan hari ini segera dikabulkan dengan cara yang paling indah. 🤍
+`;
+
+btn.onclick = () => {
+  if(stage === 1){
+  stage = 2;
+  win.style.display = 'block';
+  btn.style.display = 'none';
+  music.play();
+
+  butterfly.style.display = 'block'; // tampilkan kupu-kupu
+  typeText(message);
+}
+  else if(stage === 2){
+    stage = 3;
+    showReply();
+  }
+};
+
+function typeText(text){
+  let i = 0;
+  textEl.innerHTML = "";
+  const interval = setInterval(()=>{
+    textEl.innerHTML += text[i];
+    textEl.scrollTop = textEl.scrollHeight;
+    i++;
+    if(i >= text.length){
+      clearInterval(interval);
+      btn.style.display = 'block';
+      btn.innerText = "Balas Pesan";
+    }
+  }, 50);
+}
+
+function perchButterfly(){
+  butterfly.classList.add('perch');
+}
+
+function showReply(){
+  textEl.innerHTML = `
+    <textarea id="reply"></textarea>
+    <button class="sendBtn">Kirim ke WhatsApp</button>
+  `;
+
+  document.querySelector('.sendBtn').onclick = ()=>{
+    const msg = document.getElementById('reply').value.trim();
+    if(!msg){
+      showWarning();
+      return;
+    }
+    const url = `https://wa.me/6283867510865?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  };
+}
+
+function showWarning(){
+  const w = document.getElementById('warning');
+  w.style.display = 'flex';
+  setTimeout(()=> w.style.display='none', 3000);
+}
+</script>
+
+</body>
+</html>
